@@ -2,13 +2,10 @@ import spacy
 from collections import Counter
 import csv
 
-# Load English tokenizer, tagger, parser, NER, and word vectors
 nlp = spacy.load("en_core_web_sm")
 
-# Define the CSV file path
 csv_files = ['rocky_barnes_amazon.csv', 'rocky_barnes_calvin.csv', 'lilmiquela_eyewear.csv', 'lilmiquela_bmw.csv']
 
-# Keywords for brand recall
 brand_recalls = {
     'lilmiquela_bmw.csv': [
         'bmw', 'x2', 'car', 'vehicle', 'luxury', 'performance', 'design',
@@ -51,8 +48,8 @@ for csv_file in csv_files:
         reader = csv.DictReader(file)
         for row in reader:
             comment = row['Comment']
-            doc = nlp(comment.lower())  # Lowercase to ensure matching
-            tokens = [token.text for token in doc if token.is_alpha]  # Filter out non-alphabetic tokens
+            doc = nlp(comment.lower()) 
+            tokens = [token.text for token in doc if token.is_alpha]
             keyword_mentions.update([token for token in tokens if token in brand_recalls[csv_file]])
             total_comments += 1
 
